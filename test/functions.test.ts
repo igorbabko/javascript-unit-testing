@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { formatSeconds } from '../src/functions'
+import { formatSeconds, formatSecondsWithSign } from '../src/functions'
 
 it('formats seconds', () => {
   // const formattedSeconds = formatSeconds(0);
@@ -17,6 +17,26 @@ it('formats seconds', () => {
   // expect(2).toBe(2)
   // expect(Math.sqrt(144)).toBe(12)
   // expect(Math.sqrt(2)).toBe(Math.SQRT2)
+})
+
+it('formats seconds with sign', () => {
+  // vi.spyOn(formatSeconds).mockReturnValue('11111111')
+
+  expect(formatSecondsWithSign(0)).toBe('+00:00:00')
+  expect(formatSecondsWithSign(60)).toBe('+00:01:00')
+  expect(formatSecondsWithSign(180)).toBe('+00:03:00')
+  expect(formatSecondsWithSign(30 * 60)).toBe('+00:30:00')
+  expect(formatSecondsWithSign(30 * 60)).toBe('+00:30:00')
+  expect(formatSecondsWithSign(60 * 60)).toBe('+01:00:00')
+  expect(formatSecondsWithSign(24 * 60 * 60)).toBe('+00:00:00')
+
+  expect(formatSecondsWithSign(-0)).toBe('+00:00:00')
+  expect(formatSecondsWithSign(-60)).toBe('-00:01:00')
+  expect(formatSecondsWithSign(-180)).toBe('-00:03:00')
+  expect(formatSecondsWithSign(-30 * 60)).toBe('-00:30:00')
+  expect(formatSecondsWithSign(-30 * 60)).toBe('-00:30:00')
+  expect(formatSecondsWithSign(-60 * 60)).toBe('-01:00:00')
+  expect(formatSecondsWithSign(-24 * 60 * 60)).toBe('-00:00:00')
 })
 
 // test('Squared', () => {
