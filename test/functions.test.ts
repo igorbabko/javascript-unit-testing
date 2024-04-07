@@ -1,5 +1,13 @@
 import { expect, it, vi } from 'vitest'
-import { formatSeconds, formatSecondsWithSign, normalizeSelectValue, id } from '../src/functions'
+import {
+  formatSeconds,
+  formatSecondsWithSign,
+  normalizeSelectValue,
+  id,
+  getProgressColorClass
+} from '../src/functions'
+import { ProgressColorClass } from '../src/types'
+import { HUNDRED_PERCENT, LOW_PERCENT, MEDIUM_PERCENT } from '../src/constants'
 
 it('formats seconds', () => {
   expect(formatSeconds(0)).toBe('00:00:00')
@@ -40,8 +48,14 @@ it('generates random id', () => {
   vi.spyOn(Math, 'random').mockReturnValueOnce(10000)
 
   expect(id()).toBe('1s')
-  // expect(id()).toBe('1s')
-  // expect(id()).toBe('1s')
+})
+
+it('gets progress color class', () => {
+  expect(getProgressColorClass(0)).toBe(ProgressColorClass.RED)
+  expect(getProgressColorClass(LOW_PERCENT - 1)).toBe(ProgressColorClass.RED)
+  expect(getProgressColorClass(MEDIUM_PERCENT - 1)).toBe(ProgressColorClass.YELLOW)
+  expect(getProgressColorClass(HUNDRED_PERCENT - 1)).toBe(ProgressColorClass.BLUE)
+  expect(getProgressColorClass(HUNDRED_PERCENT)).toBe(ProgressColorClass.GREEN)
 })
 
 // test('Squared', () => {
