@@ -57,20 +57,3 @@ it('gets progress color class', () => {
   expect(getProgressColorClass(HUNDRED_PERCENT - 1)).toBe(ProgressColorClass.BLUE)
   expect(getProgressColorClass(HUNDRED_PERCENT)).toBe(ProgressColorClass.GREEN)
 })
-
-// test('Squared', () => {
-//   expect(squared(2)).toBe(4)
-//   expect(squared(12)).toBe(144)
-// })
-
-// test('JSON', () => {
-//   const input = {
-//     foo: 'hello',
-//     bar: 'world',
-//   }
-
-//   const output = JSON.stringify(input)
-
-//   expect(output).eq('{"foo":"hello","bar":"world"}')
-//   assert.deepEqual(JSON.parse(output), input, 'matches original')
-// })
