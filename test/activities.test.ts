@@ -1,6 +1,7 @@
 import { expect, it, beforeEach } from 'vitest'
 import {
   activities,
+  calculateActivityCompletionPercentage,
   createActivity,
   deleteActivity,
   initializeActivities,
@@ -105,4 +106,16 @@ it('deletes activity', () => {
   expect(activities.value).toHaveLength(1)
   expect(activities.value).toContainEqual(codingActivity)
   expect(activities.value).not.toContainEqual(readingActivity)
+})
+
+it('calculates activity completion percentage', () => {
+  const activity: Activity = {
+    id: '1',
+    name: 'Coding',
+    secondsToComplete: 3600
+  }
+
+  expect(calculateActivityCompletionPercentage(activity, 0)).toBe(0)
+  expect(calculateActivityCompletionPercentage(activity, 1800)).toBe(50)
+  expect(calculateActivityCompletionPercentage(activity, 3600)).toBe(100)
 })
