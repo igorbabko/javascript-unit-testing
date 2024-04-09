@@ -1,5 +1,11 @@
 import { expect, it, beforeEach } from 'vitest'
-import { activities, createActivity, initializeActivities, updateActivity } from '../src/activities'
+import {
+  activities,
+  createActivity,
+  deleteActivity,
+  initializeActivities,
+  updateActivity
+} from '../src/activities'
 import { Activity } from '../src/types'
 
 beforeEach(() => {
@@ -32,16 +38,16 @@ it('initializes activities', () => {
 })
 
 it('creates activity', () => {
-  const codingActivity: Activity = {
+  const activity: Activity = {
     id: '1',
     name: 'Coding',
     secondsToComplete: 3600
   }
 
-  createActivity(codingActivity)
+  createActivity(activity)
 
   expect(activities.value).toHaveLength(1)
-  expect(activities.value).toContainEqual(codingActivity)
+  expect(activities.value).toContainEqual(activity)
 })
 
 it('updates activity', () => {
@@ -71,4 +77,32 @@ it('updates activity', () => {
   // expect(activities.value[0]).toHaveProperty('id', '2')
   // expect(activities.value[0]).toHaveProperty('name', 'Programming')
   // expect(activities.value[0]).toHaveProperty('secondsToComplete', 7200)
+})
+
+it('deletes activity', () => {
+  const codingActivity: Activity = {
+    id: '1',
+    name: 'Coding',
+    secondsToComplete: 3600
+  }
+
+  const readingActivity: Activity = {
+    id: '2',
+    name: 'Reading',
+    secondsToComplete: 7200
+  }
+
+  initializeActivities({
+    timelineItems: [],
+    activities: [codingActivity, readingActivity],
+    lastActiveAt: new Date()
+  })
+
+  expect(activities.value).toHaveLength(2)
+
+  deleteActivity(readingActivity)
+
+  expect(activities.value).toHaveLength(1)
+  expect(activities.value).toContainEqual(codingActivity)
+  expect(activities.value).not.toContainEqual(readingActivity)
 })
