@@ -51,7 +51,7 @@ it('gets progress color class', () => {
   expect(getProgressColorClass(HUNDRED_PERCENT)).toBe(ProgressColorClass.GREEN)
 })
 
-it('generates random id', () => {
+it('generates id', () => {
   vi.spyOn(Date, 'now').mockReturnValueOnce(1)
   vi.spyOn(Math, 'random').mockReturnValueOnce(10000)
 
