@@ -1,7 +1,8 @@
 import { expect, it, vi } from 'vitest'
-import { endOfHour, isToday, today, tomorrow } from '../src/time'
+import { endOfHour, isToday, toSeconds, today, tomorrow } from '../src/time'
+import { MILLISECONDS_IN_SECOND } from '../src/constants'
 
-it('gets current date', async () => {
+it('gets current date', () => {
   const dateA = new Date('1990-01-01')
   const dateB = new Date('2024-03-08')
   const dateC = new Date('2030-05-14')
@@ -27,7 +28,7 @@ it('gets current date', async () => {
   vi.useRealTimers()
 })
 
-it('gets date of tomorrow', async () => {
+it('gets date of tomorrow', () => {
   const dateA = new Date('1990-01-01')
   const tomorrowOfDateA = new Date('1990-01-02')
 
@@ -58,7 +59,7 @@ it('gets date of tomorrow', async () => {
   vi.useRealTimers()
 })
 
-it('gets end of hour date', async () => {
+it('gets end of hour date', () => {
   const dateA = new Date('2024-04-10T10:15:00')
   const endOfHourOfDateA = new Date('2024-04-10T11:00:00')
 
@@ -73,7 +74,7 @@ it('gets end of hour date', async () => {
   expect(endOfHour(dateC)).toEqual(endOfHourOfDateC)
 })
 
-it('checks if passed date is today', async () => {
+it('checks if passed date is today', () => {
   const dateA = new Date('2024-01-01')
   const dateB = new Date('2024-01-02')
 
@@ -86,4 +87,14 @@ it('checks if passed date is today', async () => {
 
   expect(isToday(dateA)).toBe(false)
   expect(isToday(dateB)).toBe(true)
+})
+
+it('converts milliseconds to seconds', () => {
+  expect(toSeconds(0)).toBe(0)
+  expect(toSeconds(1 * MILLISECONDS_IN_SECOND)).toBe(1)
+  expect(toSeconds(2 * MILLISECONDS_IN_SECOND)).toBe(2)
+  expect(toSeconds(3 * MILLISECONDS_IN_SECOND)).toBe(3)
+  expect(toSeconds(-1 * MILLISECONDS_IN_SECOND)).toBe(-1)
+  expect(toSeconds(-2 * MILLISECONDS_IN_SECOND)).toBe(-2)
+  expect(toSeconds(-3 * MILLISECONDS_IN_SECOND)).toBe(-3)
 })
