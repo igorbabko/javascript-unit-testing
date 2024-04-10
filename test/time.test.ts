@@ -1,5 +1,5 @@
 import { expect, it, vi } from 'vitest'
-import { endOfHour, today, tomorrow } from '../src/time'
+import { endOfHour, isToday, today, tomorrow } from '../src/time'
 
 it('gets current date', async () => {
   const dateA = new Date('1990-01-01')
@@ -71,4 +71,19 @@ it('gets end of hour date', async () => {
   expect(endOfHour(dateA)).toEqual(endOfHourOfDateA)
   expect(endOfHour(dateB)).toEqual(endOfHourOfDateB)
   expect(endOfHour(dateC)).toEqual(endOfHourOfDateC)
+})
+
+it('checks if passed date is today', async () => {
+  const dateA = new Date('2024-01-01')
+  const dateB = new Date('2024-01-02')
+
+  vi.setSystemTime(dateA)
+
+  expect(isToday(dateA)).toBe(true)
+  expect(isToday(dateB)).toBe(false)
+
+  vi.setSystemTime(dateB)
+
+  expect(isToday(dateA)).toBe(false)
+  expect(isToday(dateB)).toBe(true)
 })
