@@ -1,27 +1,74 @@
 import { expect, it, vi } from 'vitest'
-import { today, tomorrow } from '../src/time'
+import { endOfHour, today, tomorrow } from '../src/time'
 
 it('gets current date', async () => {
-  const currentDate = new Date()
+  const dateA = new Date('1990-01-01')
+  const dateB = new Date('2024-03-08')
+  const dateC = new Date('2030-05-14')
 
-  vi.setSystemTime(currentDate)
+  vi.setSystemTime(dateA)
 
   // await new Promise((resolve) => setTimeout(() => resolve(null), 2000))
 
-  expect(today()).toEqual(currentDate)
+  expect(today()).toEqual(dateA)
+
+  vi.setSystemTime(dateB)
+
+  // await new Promise((resolve) => setTimeout(() => resolve(null), 2000))
+
+  expect(today()).toEqual(dateB)
+
+  vi.setSystemTime(dateC)
+
+  // await new Promise((resolve) => setTimeout(() => resolve(null), 2000))
+
+  expect(today()).toEqual(dateC)
 
   vi.useRealTimers()
 })
 
 it('gets date of tomorrow', async () => {
-  const [currentDate, dateOfTomorrow] = [new Date(), new Date()]
-  dateOfTomorrow.setDate(currentDate.getDate() + 1)
+  const dateA = new Date('1990-01-01')
+  const tomorrowOfDateA = new Date('1990-01-02')
 
-  vi.setSystemTime(currentDate)
+  const dateB = new Date('2024-03-08')
+  const tomorrowOfDateB = new Date('2024-03-09')
 
-  // await new Promise((resolve) => setTimeout(() => resolve(null), 2000))
+  const dateC = new Date('2030-05-14')
+  const tomorrowOfDateC = new Date('2030-05-15')
 
-  expect(tomorrow()).toEqual(dateOfTomorrow)
+  vi.setSystemTime(dateA)
+
+  expect(tomorrow()).toEqual(tomorrowOfDateA)
+
+  // await new Promise((resolve) => setTimeout(() => resolve(null), 1000))
+
+  vi.setSystemTime(dateB)
+
+  expect(tomorrow()).toEqual(tomorrowOfDateB)
+
+  // await new Promise((resolve) => setTimeout(() => resolve(null), 1000))
+
+  vi.setSystemTime(dateC)
+
+  expect(tomorrow()).toEqual(tomorrowOfDateC)
+
+  // await new Promise((resolve) => setTimeout(() => resolve(null), 1000))
 
   vi.useRealTimers()
+})
+
+it('gets end of hour date', async () => {
+  const dateA = new Date('2024-04-10T10:15:00')
+  const endOfHourOfDateA = new Date('2024-04-10T11:00:00')
+
+  const dateB = new Date('2024-04-10T20:00:00')
+  const endOfHourOfDateB = new Date('2024-04-10T21:00:00')
+
+  const dateC = new Date('2024-04-10T12:59:00')
+  const endOfHourOfDateC = new Date('2024-04-10T13:00:00')
+
+  expect(endOfHour(dateA)).toEqual(endOfHourOfDateA)
+  expect(endOfHour(dateB)).toEqual(endOfHourOfDateB)
+  expect(endOfHour(dateC)).toEqual(endOfHourOfDateC)
 })
