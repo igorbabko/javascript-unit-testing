@@ -1,13 +1,13 @@
 import { expect, it, vi } from 'vitest'
+import { HUNDRED_PERCENT, LOW_PERCENT, MEDIUM_PERCENT } from '../src/constants'
 import {
   formatSeconds,
   formatSecondsWithSign,
-  normalizeSelectValue,
+  getProgressColorClass,
   id,
-  getProgressColorClass
+  normalizeSelectValue
 } from '../src/functions'
 import { ProgressColorClass } from '../src/types'
-import { HUNDRED_PERCENT, LOW_PERCENT, MEDIUM_PERCENT } from '../src/constants'
 
 it('formats seconds', () => {
   expect(formatSeconds(0)).toBe('00:00:00')
@@ -43,17 +43,17 @@ it('normalizes select value', () => {
   expect(normalizeSelectValue('1')).toBe(1)
 })
 
-it('generates random id', () => {
-  vi.spyOn(Date, 'now').mockReturnValueOnce(1)
-  vi.spyOn(Math, 'random').mockReturnValueOnce(10000)
-
-  expect(id()).toBe('1s')
-})
-
 it('gets progress color class', () => {
   expect(getProgressColorClass(0)).toBe(ProgressColorClass.RED)
   expect(getProgressColorClass(LOW_PERCENT - 1)).toBe(ProgressColorClass.RED)
   expect(getProgressColorClass(MEDIUM_PERCENT - 1)).toBe(ProgressColorClass.YELLOW)
   expect(getProgressColorClass(HUNDRED_PERCENT - 1)).toBe(ProgressColorClass.BLUE)
   expect(getProgressColorClass(HUNDRED_PERCENT)).toBe(ProgressColorClass.GREEN)
+})
+
+it('generates random id', () => {
+  vi.spyOn(Date, 'now').mockReturnValueOnce(1)
+  vi.spyOn(Math, 'random').mockReturnValueOnce(10000)
+
+  expect(id()).toBe('1s')
 })
