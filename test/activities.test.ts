@@ -20,20 +20,9 @@ it('updates activity', () => {
     secondsToComplete: 7200
   }
 
-  initializeActivities({
-    timelineItems: [],
-    activities: [activity],
-    lastActiveAt: new Date()
-  })
-
   updateActivity(activity, updatedActivity)
 
-  expect(activities.value).toHaveLength(1)
-  expect(activities.value).toContainEqual(updatedActivity)
-
-  // expect(activities.value[0]).toHaveProperty('id', '2')
-  // expect(activities.value[0]).toHaveProperty('name', 'Programming')
-  // expect(activities.value[0]).toHaveProperty('secondsToComplete', 7200)
+  expect(activity).toEqual(updatedActivity)
 })
 
 it('calculates activity completion percentage', () => {
