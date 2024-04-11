@@ -9,6 +9,7 @@ it('normalizes valid page hash', () => {
     window.location.hash = page
 
     expect(normalizePageHash()).toBe(page)
+    expect(window.location.hash).toBe(`#${page}`)
   })
 })
 
@@ -16,4 +17,5 @@ it('normalizes invalid page hash', () => {
   window.location.hash = 'invalid'
 
   expect(normalizePageHash()).toBe(PageName.TIMELINE)
+  expect(window.location.hash).toBe(`#${PageName.TIMELINE}`)
 })
