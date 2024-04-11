@@ -2,17 +2,19 @@ import { expect, it } from 'vitest'
 import { updateTimelineItem } from '../src/timeline-items'
 import { TimelineItem } from '../src/types'
 
-it.skip('updates timeline item', () => {
+it('updates timeline item', () => {
   const timelineItem: TimelineItem = {
-    id: '1',
-    name: 'Coding',
-    secondsToComplete: 3600
+    hour: 1,
+    activityId: '1',
+    activitySeconds: 0,
+    isActive: false
   }
 
   const updatedTimelineItem: TimelineItem = {
-    id: '2',
-    name: 'Programming',
-    secondsToComplete: 7200
+    hour: 1,
+    activityId: '2',
+    activitySeconds: 3600,
+    isActive: true
   }
 
   updateTimelineItem(timelineItem, updatedTimelineItem)
