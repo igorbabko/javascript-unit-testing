@@ -1,5 +1,9 @@
 import { expect, it, vi } from 'vitest'
-import { resetTimelineItemActivities, updateTimelineItem } from '../src/timeline-items'
+import {
+  calculateTrackedActivitySeconds,
+  resetTimelineItemActivities,
+  updateTimelineItem
+} from '../src/timeline-items'
 import { Activity, Hour, TimelineItem } from '../src/types'
 
 it('updates timeline item', () => {
@@ -82,4 +86,53 @@ it('resets timeline item activities', () => {
       isActive: true
     }
   ])
+})
+
+it('calculates tracked activity seconds', () => {
+  const codingActivity: Activity = {
+    id: '1',
+    name: 'Coding',
+    secondsToComplete: 3600
+  }
+
+  const readingActivity: Activity = {
+    id: '2',
+    name: 'Reading',
+    secondsToComplete: 7200
+  }
+
+  const timelineItems: TimelineItem[] = [
+    {
+      hour: 1,
+      activityId: codingActivity.id,
+      activitySeconds: 1800,
+      isActive: false
+    },
+    {
+      hour: 2,
+      activityId: codingActivity.id,
+      activitySeconds: 3600,
+      isActive: false
+    },
+    {
+      hour: 3,
+      activityId: readingActivity.id,
+      activitySeconds: 3600,
+      isActive: true
+    }
+  ]
+
+  const trackedCodingActivitySeconds = calculateTrackedActivitySeconds(
+    timelineItems,
+    codingActivity
+  )
+  const trackedReadingActivitySeconds = calculateTrackedActivitySeconds(
+    timelineItems,
+    readingActivity
+  )
+
+  expect(trackedCodingActivitySeconds).toEqual(
+    timelineItems[0].activitySeconds + timelineItems[1].activitySeconds
+  )
+  expect(trackedReadingActivitySeconds).toEqual(timelineItems[2].activitySeconds)
 })
