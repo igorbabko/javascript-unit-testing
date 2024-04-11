@@ -1,10 +1,5 @@
 import { expect, it } from 'vitest'
-import {
-  activities,
-  calculateActivityCompletionPercentage,
-  initializeActivities,
-  updateActivity
-} from '../src/activities'
+import { calculateActivityCompletionPercentage, updateActivity } from '../src/activities'
 import { Activity } from '../src/types'
 
 it('updates activity', () => {
