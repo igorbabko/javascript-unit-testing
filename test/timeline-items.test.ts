@@ -5,19 +5,20 @@ import {
   updateTimelineItem
 } from '../src/timeline-items'
 import { Activity, Hour, TimelineItem } from '../src/types'
+import { MINUTES_IN_HOUR, SECONDS_IN_MINUTE } from '../src/constants'
 
 it('updates timeline item', () => {
   const timelineItem: TimelineItem = {
     hour: 1,
     activityId: '1',
-    activitySeconds: 0,
+    activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 0,
     isActive: false
   }
 
   const updatedTimelineItem: TimelineItem = {
     hour: 2,
     activityId: '2',
-    activitySeconds: 3600,
+    activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1,
     isActive: true
   }
 
@@ -34,32 +35,32 @@ it('resets timeline item activities', () => {
   const codingActivity: Activity = {
     id: '1',
     name: 'Coding',
-    secondsToComplete: 3600
+    secondsToComplete: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1
   }
 
   const readingActivity: Activity = {
     id: '2',
     name: 'Reading',
-    secondsToComplete: 7200
+    secondsToComplete: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 2
   }
 
   const timelineItems: TimelineItem[] = [
     {
       hour: 1,
       activityId: codingActivity.id,
-      activitySeconds: 1800,
+      activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 0.5,
       isActive: false
     },
     {
       hour: date.getHours() as Hour,
       activityId: codingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1,
       isActive: false
     },
     {
       hour: 3,
       activityId: readingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1,
       isActive: true
     }
   ]
@@ -70,19 +71,19 @@ it('resets timeline item activities', () => {
     {
       hour: 1,
       activityId: null,
-      activitySeconds: 0,
+      activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 0,
       isActive: false
     },
     {
       hour: date.getHours(),
       activityId: null,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1,
       isActive: false
     },
     {
       hour: 3,
       activityId: readingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1,
       isActive: true
     }
   ])
@@ -94,32 +95,32 @@ it('calculates tracked activity seconds', () => {
   const codingActivity: Activity = {
     id: '1',
     name: 'Coding',
-    secondsToComplete: 3600
+    secondsToComplete: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1
   }
 
   const readingActivity: Activity = {
     id: '2',
     name: 'Reading',
-    secondsToComplete: 7200
+    secondsToComplete: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 2
   }
 
   const timelineItems: TimelineItem[] = [
     {
       hour: 1,
       activityId: codingActivity.id,
-      activitySeconds: 1800,
+      activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 0.5,
       isActive: false
     },
     {
       hour: 2,
       activityId: codingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1,
       isActive: false
     },
     {
       hour: 3,
       activityId: readingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1,
       isActive: true
     }
   ]
