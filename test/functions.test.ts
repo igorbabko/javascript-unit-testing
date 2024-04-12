@@ -17,30 +17,30 @@ import {
 import { ProgressColorClass } from '../src/types'
 
 it('formats seconds', () => {
-  expect(formatSeconds(0 * SECONDS_IN_MINUTE)).toBe('00:00:00')
-  expect(formatSeconds(1 * SECONDS_IN_MINUTE)).toBe('00:01:00')
-  expect(formatSeconds(3 * SECONDS_IN_MINUTE)).toBe('00:03:00')
-  expect(formatSeconds(30 * SECONDS_IN_MINUTE)).toBe('00:30:00')
-  expect(formatSeconds(60 * SECONDS_IN_MINUTE)).toBe('01:00:00')
+  expect(formatSeconds(SECONDS_IN_MINUTE * 0)).toBe('00:00:00')
+  expect(formatSeconds(SECONDS_IN_MINUTE * 1)).toBe('00:01:00')
+  expect(formatSeconds(SECONDS_IN_MINUTE * 3)).toBe('00:03:00')
+  expect(formatSeconds(SECONDS_IN_MINUTE * 30)).toBe('00:30:00')
+  expect(formatSeconds(SECONDS_IN_MINUTE * 60)).toBe('01:00:00')
   expect(formatSeconds(SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY)).toBe('00:00:00')
 })
 
 it('formats seconds with sign', () => {
-  expect(formatSecondsWithSign(0 * SECONDS_IN_MINUTE)).toBe('+00:00:00')
-  expect(formatSecondsWithSign(1 * SECONDS_IN_MINUTE)).toBe('+00:01:00')
-  expect(formatSecondsWithSign(3 * SECONDS_IN_MINUTE)).toBe('+00:03:00')
-  expect(formatSecondsWithSign(30 * SECONDS_IN_MINUTE)).toBe('+00:30:00')
-  expect(formatSecondsWithSign(60 * SECONDS_IN_MINUTE)).toBe('+01:00:00')
+  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 0)).toBe('+00:00:00')
+  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 1)).toBe('+00:01:00')
+  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 3)).toBe('+00:03:00')
+  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 30)).toBe('+00:30:00')
+  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 60)).toBe('+01:00:00')
   expect(formatSecondsWithSign(SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY)).toBe(
     '+00:00:00'
   )
 
-  expect(formatSecondsWithSign(-0 * SECONDS_IN_MINUTE)).toBe('+00:00:00')
-  expect(formatSecondsWithSign(-1 * SECONDS_IN_MINUTE)).toBe('-00:01:00')
-  expect(formatSecondsWithSign(-3 * SECONDS_IN_MINUTE)).toBe('-00:03:00')
-  expect(formatSecondsWithSign(-30 * SECONDS_IN_MINUTE)).toBe('-00:30:00')
-  expect(formatSecondsWithSign(-60 * SECONDS_IN_MINUTE)).toBe('-01:00:00')
-  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY)).toBe(
+  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 0)).toBe('+00:00:00')
+  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 1)).toBe('-00:01:00')
+  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 3)).toBe('-00:03:00')
+  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 30)).toBe('-00:30:00')
+  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 60)).toBe('-01:00:00')
+  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY)).toBe(
     '-00:00:00'
   )
 })
