@@ -92,9 +92,9 @@ it('checks if passed date is today', () => {
 })
 
 it('converts milliseconds to seconds', () => {
-  expect(toSeconds(-10 * MILLISECONDS_IN_SECOND)).toBe(-10)
-  expect(toSeconds(-1 * MILLISECONDS_IN_SECOND)).toBe(-1)
-  expect(toSeconds(0 * MILLISECONDS_IN_SECOND)).toBe(0)
-  expect(toSeconds(+1 * MILLISECONDS_IN_SECOND)).toBe(1)
-  expect(toSeconds(+10 * MILLISECONDS_IN_SECOND)).toBe(10)
+  expect(toSeconds(-MILLISECONDS_IN_SECOND * 10)).toBe(-10)
+  expect(toSeconds(-MILLISECONDS_IN_SECOND * 1)).toBe(-1)
+  expect(toSeconds(MILLISECONDS_IN_SECOND * 0)).toBe(0)
+  expect(toSeconds(MILLISECONDS_IN_SECOND * 1)).toBe(1)
+  expect(toSeconds(MILLISECONDS_IN_SECOND * 10)).toBe(10)
 })
