@@ -1,19 +1,19 @@
 import { expect, it } from 'vitest'
 import { calculateActivityCompletionPercentage, updateActivity } from '../src/activities'
-import { Activity } from '../src/types'
 import { MINUTES_IN_HOUR, SECONDS_IN_MINUTE } from '../src/constants'
+import { Activity } from '../src/types'
 
 it('updates activity', () => {
   const activity: Activity = {
     id: '1',
     name: 'Coding',
-    secondsToComplete: SECONDS_IN_MINUTE * MINUTES_IN_HOUR
+    secondsToComplete: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1
   }
 
   const updatedActivity: Activity = {
     id: '2',
-    name: 'Programming',
-    secondsToComplete: 7200
+    name: 'Reading',
+    secondsToComplete: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 2
   }
 
   updateActivity(activity, updatedActivity)
@@ -25,10 +25,16 @@ it('calculates activity completion percentage', () => {
   const activity: Activity = {
     id: '1',
     name: 'Coding',
-    secondsToComplete: 3600
+    secondsToComplete: SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1
   }
 
-  expect(calculateActivityCompletionPercentage(activity, 0)).toBe(0)
-  expect(calculateActivityCompletionPercentage(activity, 1800)).toBe(50)
-  expect(calculateActivityCompletionPercentage(activity, 3600)).toBe(100)
+  expect(
+    calculateActivityCompletionPercentage(activity, SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 0)
+  ).toBe(0)
+  expect(
+    calculateActivityCompletionPercentage(activity, SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 0.5)
+  ).toBe(50)
+  expect(
+    calculateActivityCompletionPercentage(activity, SECONDS_IN_MINUTE * MINUTES_IN_HOUR * 1)
+  ).toBe(100)
 })
