@@ -6,7 +6,7 @@ import {
   MINUTES_IN_HOUR,
   SECONDS_IN_MINUTE
 } from './constants'
-import { ProgressColorClass, SelectOption } from './types'
+import { ProgressColorClass, type SelectOption } from './types'
 
 export function formatSecondsWithSign(seconds: number): string {
   return `${seconds >= 0 ? '+' : '-'}${formatSeconds(seconds)}`
