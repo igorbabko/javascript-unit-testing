@@ -1,12 +1,13 @@
 import { expect, it } from 'vitest'
 import { calculateActivityCompletionPercentage, updateActivity } from '../src/activities'
 import { Activity } from '../src/types'
+import { MINUTES_IN_HOUR, SECONDS_IN_MINUTE } from '../src/constants'
 
 it('updates activity', () => {
   const activity: Activity = {
     id: '1',
     name: 'Coding',
-    secondsToComplete: 3600
+    secondsToComplete: SECONDS_IN_MINUTE * MINUTES_IN_HOUR
   }
 
   const updatedActivity: Activity = {
