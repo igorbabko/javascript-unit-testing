@@ -86,6 +86,8 @@ it('resets timeline item activities', () => {
       isActive: true
     }
   ])
+
+  vi.useRealTimers()
 })
 
 it('calculates tracked activity seconds', () => {
