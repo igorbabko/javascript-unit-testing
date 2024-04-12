@@ -1,5 +1,11 @@
 import { expect, it, vi } from 'vitest'
-import { HUNDRED_PERCENT, LOW_PERCENT, MEDIUM_PERCENT } from '../src/constants'
+import {
+  HUNDRED_PERCENT,
+  LOW_PERCENT,
+  MEDIUM_PERCENT,
+  MINUTES_IN_HOUR,
+  SECONDS_IN_MINUTE
+} from '../src/constants'
 import {
   formatSeconds,
   formatSecondsWithSign,
@@ -10,31 +16,28 @@ import {
 import { ProgressColorClass } from '../src/types'
 
 it('formats seconds', () => {
-  expect(formatSeconds(0)).toBe('00:00:00')
-  expect(formatSeconds(60)).toBe('00:01:00')
-  expect(formatSeconds(180)).toBe('00:03:00')
-  expect(formatSeconds(30 * 60)).toBe('00:30:00')
-  expect(formatSeconds(30 * 60)).toBe('00:30:00')
-  expect(formatSeconds(60 * 60)).toBe('01:00:00')
-  expect(formatSeconds(24 * 60 * 60)).toBe('00:00:00')
+  expect(formatSeconds(0 * SECONDS_IN_MINUTE)).toBe('00:00:00')
+  expect(formatSeconds(1 * SECONDS_IN_MINUTE)).toBe('00:01:00')
+  expect(formatSeconds(3 * SECONDS_IN_MINUTE)).toBe('00:03:00')
+  expect(formatSeconds(30 * SECONDS_IN_MINUTE)).toBe('00:30:00')
+  expect(formatSeconds(60 * SECONDS_IN_MINUTE)).toBe('01:00:00')
+  expect(formatSeconds(24 * MINUTES_IN_HOUR * SECONDS_IN_MINUTE)).toBe('00:00:00')
 })
 
 it('formats seconds with sign', () => {
-  expect(formatSecondsWithSign(0)).toBe('+00:00:00')
-  expect(formatSecondsWithSign(60)).toBe('+00:01:00')
-  expect(formatSecondsWithSign(180)).toBe('+00:03:00')
-  expect(formatSecondsWithSign(30 * 60)).toBe('+00:30:00')
-  expect(formatSecondsWithSign(30 * 60)).toBe('+00:30:00')
-  expect(formatSecondsWithSign(60 * 60)).toBe('+01:00:00')
-  expect(formatSecondsWithSign(24 * 60 * 60)).toBe('+00:00:00')
+  expect(formatSecondsWithSign(0 * SECONDS_IN_MINUTE)).toBe('+00:00:00')
+  expect(formatSecondsWithSign(1 * SECONDS_IN_MINUTE)).toBe('+00:01:00')
+  expect(formatSecondsWithSign(3 * SECONDS_IN_MINUTE)).toBe('+00:03:00')
+  expect(formatSecondsWithSign(30 * SECONDS_IN_MINUTE)).toBe('+00:30:00')
+  expect(formatSecondsWithSign(60 * SECONDS_IN_MINUTE)).toBe('+01:00:00')
+  expect(formatSecondsWithSign(24 * MINUTES_IN_HOUR * SECONDS_IN_MINUTE)).toBe('+00:00:00')
 
-  expect(formatSecondsWithSign(-0)).toBe('+00:00:00')
-  expect(formatSecondsWithSign(-60)).toBe('-00:01:00')
-  expect(formatSecondsWithSign(-180)).toBe('-00:03:00')
-  expect(formatSecondsWithSign(-30 * 60)).toBe('-00:30:00')
-  expect(formatSecondsWithSign(-30 * 60)).toBe('-00:30:00')
-  expect(formatSecondsWithSign(-60 * 60)).toBe('-01:00:00')
-  expect(formatSecondsWithSign(-24 * 60 * 60)).toBe('-00:00:00')
+  expect(formatSecondsWithSign(-0 * SECONDS_IN_MINUTE)).toBe('+00:00:00')
+  expect(formatSecondsWithSign(-1 * SECONDS_IN_MINUTE)).toBe('-00:01:00')
+  expect(formatSecondsWithSign(-3 * SECONDS_IN_MINUTE)).toBe('-00:03:00')
+  expect(formatSecondsWithSign(-30 * SECONDS_IN_MINUTE)).toBe('-00:30:00')
+  expect(formatSecondsWithSign(-60 * SECONDS_IN_MINUTE)).toBe('-01:00:00')
+  expect(formatSecondsWithSign(-24 * MINUTES_IN_HOUR * SECONDS_IN_MINUTE)).toBe('-00:00:00')
 })
 
 it('normalizes select value', () => {
