@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { formatSeconds, formatSecondsWithSign } from '../src/functions'
+import { formatSeconds, formatSecondsWithSign, normalizeSelectValue } from '../src/functions'
 
 it('formats seconds with sign', () => {
   expect(formatSecondsWithSign(0)).toBe('+00:00:00')
@@ -26,6 +26,11 @@ it('formats seconds', () => {
   expect(formatSeconds(60 * 60 * 24)).toBe('00:00:00')
 })
 
-it.todo('normalizes select value')
+it('normalizes select value', () => {
+  expect(normalizeSelectValue('random-string')).toBe('random-string')
+  expect(normalizeSelectValue(null)).toBe(null)
+  expect(normalizeSelectValue('1')).toBe(1)
+})
+
 it.todo('gets progress color class')
 it.todo('generates id')
