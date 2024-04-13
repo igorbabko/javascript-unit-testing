@@ -1,5 +1,5 @@
 import { expect, it, vi } from 'vitest'
-import { today } from '../src/time'
+import { today, tomorrow } from '../src/time'
 
 it('gets current date', () => {
   const dateA = new Date('1990-01-01')
@@ -23,7 +23,31 @@ it('gets current date', () => {
   // await new Promise((resolve) => setTimeout(() => resolve(null), 1000))
 })
 
-it.todo('gets date of tomorrow')
+it('gets date of tomorrow', () => {
+  const dateA = new Date('1990-01-01')
+  const tomorrowA = new Date('1990-01-02')
+
+  const dateB = new Date('2024-03-08')
+  const tomorrowB = new Date('2024-03-09')
+
+  const dateC = new Date('2030-05-12')
+  const tomorrowC = new Date('2030-05-13')
+
+  vi.setSystemTime(dateA)
+
+  expect(tomorrow()).toEqual(tomorrowA)
+
+  vi.setSystemTime(dateB)
+
+  expect(tomorrow()).toEqual(tomorrowB)
+
+  vi.setSystemTime(dateC)
+
+  expect(tomorrow()).toEqual(tomorrowC)
+
+  vi.useRealTimers()
+})
+
 it.todo('gets end of hour date')
 it.todo('checks if passed date is today')
 it.todo('converts milliseconds to seconds')
