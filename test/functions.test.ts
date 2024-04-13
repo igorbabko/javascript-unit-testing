@@ -1,7 +1,21 @@
 import { expect, it } from 'vitest'
-import { formatSeconds } from '../src/functions'
+import { formatSeconds, formatSecondsWithSign } from '../src/functions'
 
-it.todo('formats seconds with sign')
+it('formats seconds with sign', () => {
+  expect(formatSecondsWithSign(0)).toBe('+00:00:00')
+  expect(formatSecondsWithSign(60)).toBe('+00:01:00')
+  expect(formatSecondsWithSign(180)).toBe('+00:03:00')
+  expect(formatSecondsWithSign(1800)).toBe('+00:30:00')
+  expect(formatSecondsWithSign(3600)).toBe('+01:00:00')
+  expect(formatSecondsWithSign(60 * 60 * 24)).toBe('+00:00:00')
+
+  expect(formatSecondsWithSign(-0)).toBe('+00:00:00')
+  expect(formatSecondsWithSign(-60)).toBe('-00:01:00')
+  expect(formatSecondsWithSign(-180)).toBe('-00:03:00')
+  expect(formatSecondsWithSign(-1800)).toBe('-00:30:00')
+  expect(formatSecondsWithSign(-3600)).toBe('-01:00:00')
+  expect(formatSecondsWithSign(-60 * 60 * 24)).toBe('-00:00:00')
+})
 
 it('formats seconds', () => {
   expect(formatSeconds(0)).toBe('00:00:00')
