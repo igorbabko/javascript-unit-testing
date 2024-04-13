@@ -1,10 +1,17 @@
 {
   "recommendations": [
-    "vue.vscode-typescript-vue-plugin",
+    "drcika.apc-extension",
+    "josemurilloc.aura-spirit-dracula",
     "dbaeumer.vscode-eslint",
+    "sleistner.vscode-fileutils",
+    "pkief.material-icon-theme",
     "esbenp.prettier-vscode",
     "yoavbls.pretty-ts-errors",
     "bradlc.vscode-tailwindcss",
-    "vue.volar"
+    "shardulm94.trailing-spaces",
+    "asvetliakov.vscode-neovim",
+    "vue.volar",
+    "hollowtree.vue-snippets",
+    "sdras.vue-vscode-snippets"
   ]
 }
