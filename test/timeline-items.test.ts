@@ -1,5 +1,9 @@
 import { expect, it, vi } from 'vitest'
-import { resetTimelineItemActivities, updateTimelineItem } from '../src/timeline-items'
+import {
+  calculateTrackedActivitySeconds,
+  resetTimelineItemActivities,
+  updateTimelineItem
+} from '../src/timeline-items'
 import { Activity, Hour, TimelineItem } from '../src/types'
 
 it('updates timeline item', () => {
@@ -84,4 +88,48 @@ it('resets timeline item activities', () => {
   vi.useRealTimers()
 })
 
-it.todo('calculates tracked activity seconds')
+it('calculates tracked activity seconds', () => {
+  const trainingActivity: Activity = {
+    id: '1',
+    name: 'Training',
+    secondsToComplete: 3600
+  }
+  const readingActivity: Activity = {
+    id: '2',
+    name: 'Reading',
+    secondsToComplete: 7200
+  }
+
+  const timelineItems: TimelineItem[] = [
+    {
+      hour: 1,
+      activityId: trainingActivity.id,
+      activitySeconds: 1800,
+      isActive: false
+    },
+    {
+      hour: 2,
+      activityId: trainingActivity.id,
+      activitySeconds: 3600,
+      isActive: false
+    },
+    {
+      hour: 3,
+      activityId: readingActivity.id,
+      activitySeconds: 3600,
+      isActive: true
+    }
+  ]
+
+  const trackedTrainingActivitySeconds = calculateTrackedActivitySeconds(
+    timelineItems,
+    trainingActivity
+  )
+  const trackedReadingActivitySeconds = calculateTrackedActivitySeconds(
+    timelineItems,
+    readingActivity
+  )
+
+  expect(trackedTrainingActivitySeconds).toBe(5400)
+  expect(trackedReadingActivitySeconds).toBe(3600)
+})
