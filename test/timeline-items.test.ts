@@ -1,4 +1,5 @@
 import { expect, it, vi } from 'vitest'
+import { SECONDS_IN_HOUR } from '../src/constants'
 import {
   calculateTrackedActivitySeconds,
   resetTimelineItemActivities,
@@ -10,13 +11,13 @@ it('updates timeline item', () => {
   const timelineItem: TimelineItem = {
     hour: 1,
     activityId: '1',
-    activitySeconds: 0,
+    activitySeconds: SECONDS_IN_HOUR * 0,
     isActive: false
   }
   const updatedFields: TimelineItem = {
     hour: 2,
     activityId: '2',
-    activitySeconds: 3600,
+    activitySeconds: SECONDS_IN_HOUR * 1,
     isActive: true
   }
 
@@ -34,30 +35,30 @@ it('resets timeline item activities', () => {
   const trainingActivity: Activity = {
     id: '1',
     name: 'Training',
-    secondsToComplete: 3600
+    secondsToComplete: SECONDS_IN_HOUR * 1
   }
   const readingActivity: Activity = {
     id: '2',
     name: 'Reading',
-    secondsToComplete: 7200
+    secondsToComplete: SECONDS_IN_HOUR * 2
   }
   const timelineItems: TimelineItem[] = [
     {
       hour: 1,
       activityId: trainingActivity.id,
-      activitySeconds: 1800,
+      activitySeconds: SECONDS_IN_HOUR * 0.5,
       isActive: false
     },
     {
       hour: date.getHours() as Hour,
       activityId: trainingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_HOUR * 1,
       isActive: false
     },
     {
       hour: 3,
       activityId: readingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_HOUR * 1,
       isActive: true
     }
   ]
@@ -68,19 +69,19 @@ it('resets timeline item activities', () => {
     {
       hour: 1,
       activityId: null,
-      activitySeconds: 0,
+      activitySeconds: SECONDS_IN_HOUR * 0,
       isActive: false
     },
     {
       hour: date.getHours(),
       activityId: null,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_HOUR * 1,
       isActive: false
     },
     {
       hour: 3,
       activityId: readingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_HOUR * 1,
       isActive: true
     }
   ])
@@ -92,31 +93,31 @@ it('calculates tracked activity seconds', () => {
   const trainingActivity: Activity = {
     id: '1',
     name: 'Training',
-    secondsToComplete: 3600
+    secondsToComplete: SECONDS_IN_HOUR * 1
   }
   const readingActivity: Activity = {
     id: '2',
     name: 'Reading',
-    secondsToComplete: 7200
+    secondsToComplete: SECONDS_IN_HOUR * 2
   }
 
   const timelineItems: TimelineItem[] = [
     {
       hour: 1,
       activityId: trainingActivity.id,
-      activitySeconds: 1800,
+      activitySeconds: SECONDS_IN_HOUR * 0.5,
       isActive: false
     },
     {
       hour: 2,
       activityId: trainingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_HOUR * 1,
       isActive: false
     },
     {
       hour: 3,
       activityId: readingActivity.id,
-      activitySeconds: 3600,
+      activitySeconds: SECONDS_IN_HOUR * 1,
       isActive: true
     }
   ]
@@ -130,6 +131,6 @@ it('calculates tracked activity seconds', () => {
     readingActivity
   )
 
-  expect(trackedTrainingActivitySeconds).toBe(5400)
-  expect(trackedReadingActivitySeconds).toBe(3600)
+  expect(trackedTrainingActivitySeconds).toBe(SECONDS_IN_HOUR * 1.5)
+  expect(trackedReadingActivitySeconds).toBe(SECONDS_IN_HOUR * 1)
 })
