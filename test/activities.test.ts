@@ -1,14 +1,19 @@
-import { expect, it } from 'vitest'
+import { beforeEach, expect, it, test } from 'vitest'
 import { calculateActivityCompletionPercentage, updateActivity } from '../src/activities'
 import { HUNDRED_PERCENT, SECONDS_IN_HOUR } from '../src/constants'
 import { Activity } from '../src/types'
 
-it('updates activity', () => {
-  const activity: Activity = {
+let activity: Activity
+
+beforeEach(() => {
+  activity = {
     id: '1',
     name: 'Training',
     secondsToComplete: SECONDS_IN_HOUR * 1
   }
+})
+
+it('updates activity', () => {
   const updatedFields: Activity = {
     id: '2',
     name: 'Reading',
@@ -21,14 +26,10 @@ it('updates activity', () => {
   expect(updatedActivity).toEqual(updatedFields)
 })
 
-it('calculates activity completion percentage', () => {
-  const activity: Activity = {
-    id: '1',
-    name: 'Training',
-    secondsToComplete: SECONDS_IN_HOUR * 1
-  }
-
-  expect(calculateActivityCompletionPercentage(activity, SECONDS_IN_HOUR * 0)).toBe(0)
-  expect(calculateActivityCompletionPercentage(activity, SECONDS_IN_HOUR * 0.5)).toBe(50)
-  expect(calculateActivityCompletionPercentage(activity, SECONDS_IN_HOUR * 1)).toBe(HUNDRED_PERCENT)
+test.each([
+  [SECONDS_IN_HOUR * 0, 0],
+  [SECONDS_IN_HOUR * 0.5, 50],
+  [SECONDS_IN_HOUR * 1, HUNDRED_PERCENT]
+])('calculateActivityCompletionPercentage(%i) -> %i', (trackedSeconds, percentage) => {
+  expect(calculateActivityCompletionPercentage(activity, trackedSeconds)).toBe(percentage)
 })
