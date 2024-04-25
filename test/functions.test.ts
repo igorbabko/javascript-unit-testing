@@ -16,7 +16,7 @@ import {
 } from '../src/functions'
 import { ProgressColorClass } from '../src/types'
 
-describe('formatSecondsWithSign', () => {
+describe.concurrent('formatSecondsWithSign', () => {
   test.each([
     [SECONDS_IN_MINUTE * 0, '+00:00:00'],
     [SECONDS_IN_MINUTE * 1, '+00:01:00'],
@@ -40,7 +40,7 @@ describe('formatSecondsWithSign', () => {
   })
 })
 
-test.each([
+test.concurrent.each([
   [SECONDS_IN_MINUTE * 0, '00:00:00'],
   [SECONDS_IN_MINUTE * 1, '00:01:00'],
   [SECONDS_IN_MINUTE * 3, '00:03:00'],
@@ -51,7 +51,7 @@ test.each([
   expect(formatSeconds(seconds)).toBe(formattedSeconds)
 })
 
-test.each([
+test.concurrent.each([
   ['random-string', 'random-string'],
   [null, null],
   ['1', 1]
@@ -59,7 +59,7 @@ test.each([
   expect(normalizeSelectValue(value)).toBe(normalizedValue)
 })
 
-test.each([
+test.concurrent.each([
   [0, ProgressColorClass.RED],
   [LOW_PERCENT - 1, ProgressColorClass.RED],
   [MEDIUM_PERCENT - 1, ProgressColorClass.YELLOW],
@@ -69,7 +69,7 @@ test.each([
   expect(getProgressColorClass(percentage)).toBe(progressColorClass)
 })
 
-it('generates id', () => {
+it.concurrent('generates id', () => {
   vi.spyOn(Date, 'now').mockReturnValueOnce(1)
   vi.spyOn(Math, 'random').mockReturnValueOnce(10000)
 
