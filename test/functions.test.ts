@@ -70,8 +70,11 @@ test.each([
 })
 
 it('generates id', () => {
-  vi.spyOn(Date, 'now').mockReturnValueOnce(1)
-  vi.spyOn(Math, 'random').mockReturnValueOnce(10000)
+  const nowSpy = vi.spyOn(Date, 'now').mockReturnValueOnce(1)
+  const randomSpy = vi.spyOn(Math, 'random').mockReturnValueOnce(10000)
 
   expect(id()).toBe('1s')
+  // expect(nowSpy).toHaveBeenCalled()
+  expect(nowSpy).toHaveBeenCalledTimes(1)
+  expect(randomSpy).toHaveBeenCalledTimes(1)
 })

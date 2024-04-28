@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, test } from 'vitest'
 import { calculateActivityCompletionPercentage, updateActivity } from '../src/activities'
 import { HUNDRED_PERCENT, SECONDS_IN_HOUR } from '../src/constants'
-import { Activity } from '../src/types'
+import type { Activity } from '../src/types'
 
 let activity: Activity
 
