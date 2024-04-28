@@ -1,10 +1,10 @@
-import { expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { calculateActivityCompletionPercentage, updateActivity } from '../src/activities'
 import { HUNDRED_PERCENT, SECONDS_IN_HOUR } from '../src/constants'
 import { Activity } from '../src/types'
 
-it('updates activity', () => {
-  const activity: Activity = {
+describe('updateActivity', () => {
+  const activity = {
     id: '1',
     name: 'Training',
     secondsToComplete: SECONDS_IN_HOUR * 1
@@ -15,10 +15,15 @@ it('updates activity', () => {
     secondsToComplete: SECONDS_IN_HOUR * 2
   }
 
-  const updatedActivity = updateActivity(activity, updatedFields)
+  it('mutates original activity', () => {
+    updateActivity(activity, updatedFields)
 
-  expect(activity).toEqual(updatedFields)
-  expect(updatedActivity).toEqual(updatedFields)
+    expect(activity).toEqual(updatedFields)
+  })
+
+  it('returns updated activity', () => {
+    expect(updateActivity(activity, updatedFields)).toEqual(updatedFields)
+  })
 })
 
 it('calculates activity completion percentage', () => {

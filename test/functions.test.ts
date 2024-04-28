@@ -1,4 +1,4 @@
-import { expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import {
   HUNDRED_PERCENT,
   LOW_PERCENT,
@@ -16,20 +16,24 @@ import {
 } from '../src/functions'
 import { ProgressColorClass } from '../src/types'
 
-it('formats seconds with sign', () => {
-  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 0)).toBe('+00:00:00')
-  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 1)).toBe('+00:01:00')
-  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 3)).toBe('+00:03:00')
-  expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 30)).toBe('+00:30:00')
-  expect(formatSecondsWithSign(SECONDS_IN_HOUR)).toBe('+01:00:00')
-  expect(formatSecondsWithSign(SECONDS_IN_DAY)).toBe('+00:00:00')
+describe('formatSecondsWithSign', () => {
+  it('formats seconds with positive sign', () => {
+    expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 0)).toBe('+00:00:00')
+    expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 1)).toBe('+00:01:00')
+    expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 3)).toBe('+00:03:00')
+    expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 30)).toBe('+00:30:00')
+    expect(formatSecondsWithSign(SECONDS_IN_HOUR)).toBe('+01:00:00')
+    expect(formatSecondsWithSign(SECONDS_IN_DAY)).toBe('+00:00:00')
+  })
 
-  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 0)).toBe('+00:00:00')
-  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 1)).toBe('-00:01:00')
-  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 3)).toBe('-00:03:00')
-  expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 30)).toBe('-00:30:00')
-  expect(formatSecondsWithSign(-SECONDS_IN_HOUR)).toBe('-01:00:00')
-  expect(formatSecondsWithSign(-SECONDS_IN_DAY)).toBe('-00:00:00')
+  it('formats seconds with negative sign', () => {
+    expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 0)).toBe('+00:00:00')
+    expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 1)).toBe('-00:01:00')
+    expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 3)).toBe('-00:03:00')
+    expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 30)).toBe('-00:30:00')
+    expect(formatSecondsWithSign(-SECONDS_IN_HOUR)).toBe('-01:00:00')
+    expect(formatSecondsWithSign(-SECONDS_IN_DAY)).toBe('-00:00:00')
+  })
 })
 
 it('formats seconds', () => {
