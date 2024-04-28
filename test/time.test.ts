@@ -1,4 +1,5 @@
 import { expect, it, vi } from 'vitest'
+import { MILLISECONDS_IN_SECOND } from '../src/constants'
 import { endOfHour, isToday, toSeconds, today, tomorrow } from '../src/time'
 
 it('gets current date', () => {
@@ -81,9 +82,9 @@ it('checks if passed date is today', () => {
 })
 
 it('converts milliseconds to seconds', () => {
-  expect(toSeconds(-10000)).toBe(-10)
-  expect(toSeconds(-1000)).toBe(-1)
-  expect(toSeconds(0)).toBe(0)
-  expect(toSeconds(1000)).toBe(1)
-  expect(toSeconds(10000)).toBe(10)
+  expect(toSeconds(-MILLISECONDS_IN_SECOND * 10)).toBe(-10)
+  expect(toSeconds(-MILLISECONDS_IN_SECOND * 1)).toBe(-1)
+  expect(toSeconds(MILLISECONDS_IN_SECOND * 0)).toBe(0)
+  expect(toSeconds(MILLISECONDS_IN_SECOND * 1)).toBe(1)
+  expect(toSeconds(MILLISECONDS_IN_SECOND * 10)).toBe(10)
 })
