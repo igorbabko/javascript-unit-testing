@@ -1,11 +1,11 @@
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { SECONDS_IN_HOUR } from '../src/constants'
 import {
   calculateTrackedActivitySeconds,
   resetTimelineItemActivities,
   updateTimelineItem
 } from '../src/timeline-items'
-import { Activity, Hour, TimelineItem } from '../src/types'
+import { Activity, TimelineItem } from '../src/types'
 
 describe('updateTimelineItem', () => {
   const updatedFields: TimelineItem = {
@@ -51,13 +51,10 @@ describe('timeline items', () => {
     name: 'Reading',
     secondsToComplete: SECONDS_IN_HOUR * 2
   }
+  let timelineItems: TimelineItem[]
 
-  it('resets timeline item activities', () => {
-    const date = new Date('2024-04-10T02:00:00')
-
-    vi.setSystemTime(date)
-
-    const timelineItems: TimelineItem[] = [
+  beforeEach(() => {
+    timelineItems = [
       {
         hour: 1,
         activityId: trainingActivity.id,
@@ -65,7 +62,7 @@ describe('timeline items', () => {
         isActive: false
       },
       {
-        hour: date.getHours() as Hour,
+        hour: 2,
         activityId: trainingActivity.id,
         activitySeconds: SECONDS_IN_HOUR * 1,
         isActive: false
@@ -77,6 +74,12 @@ describe('timeline items', () => {
         isActive: true
       }
     ]
+  })
+
+  it('resets timeline item activities', () => {
+    const date = new Date('2024-04-10T02:00:00')
+
+    vi.setSystemTime(date)
 
     resetTimelineItemActivities(timelineItems, trainingActivity)
 
@@ -105,27 +108,6 @@ describe('timeline items', () => {
   })
 
   it('calculates tracked activity seconds', () => {
-    const timelineItems: TimelineItem[] = [
-      {
-        hour: 1,
-        activityId: trainingActivity.id,
-        activitySeconds: SECONDS_IN_HOUR * 0.5,
-        isActive: false
-      },
-      {
-        hour: 2,
-        activityId: trainingActivity.id,
-        activitySeconds: SECONDS_IN_HOUR * 1,
-        isActive: false
-      },
-      {
-        hour: 3,
-        activityId: readingActivity.id,
-        activitySeconds: SECONDS_IN_HOUR * 1,
-        isActive: true
-      }
-    ]
-
     const trackedTrainingActivitySeconds = calculateTrackedActivitySeconds(
       timelineItems,
       trainingActivity
