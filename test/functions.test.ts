@@ -1,4 +1,4 @@
-import { describe, expect, it, test, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import {
   HUNDRED_PERCENT,
   LOW_PERCENT,
@@ -17,7 +17,7 @@ import {
 import { ProgressColorClass } from '../src/types'
 
 describe('formatSecondsWithSign', () => {
-  test.each([
+  it.each([
     [SECONDS_IN_MINUTE * 0, '+00:00:00'],
     [SECONDS_IN_MINUTE * 1, '+00:01:00'],
     [SECONDS_IN_MINUTE * 3, '+00:03:00'],
@@ -28,7 +28,7 @@ describe('formatSecondsWithSign', () => {
     expect(formatSecondsWithSign(seconds)).toBe(formattedSeconds)
   })
 
-  test.each([
+  it.each([
     [-SECONDS_IN_MINUTE * 0, '+00:00:00'],
     [-SECONDS_IN_MINUTE * 1, '-00:01:00'],
     [-SECONDS_IN_MINUTE * 3, '-00:03:00'],
@@ -40,7 +40,7 @@ describe('formatSecondsWithSign', () => {
   })
 })
 
-test.each([
+it.each([
   [SECONDS_IN_MINUTE * 0, '00:00:00'],
   [SECONDS_IN_MINUTE * 1, '00:01:00'],
   [SECONDS_IN_MINUTE * 3, '00:03:00'],
@@ -51,7 +51,7 @@ test.each([
   expect(formatSeconds(seconds)).toBe(formattedSeconds)
 })
 
-test.each([
+it.each([
   ['random-string', 'random-string'],
   [null, null],
   ['1', 1]
@@ -59,7 +59,7 @@ test.each([
   expect(normalizeSelectValue(value)).toBe(normalizedValue)
 })
 
-test.each([
+it.each([
   [0, ProgressColorClass.RED],
   [LOW_PERCENT - 1, ProgressColorClass.RED],
   [MEDIUM_PERCENT - 1, ProgressColorClass.YELLOW],
@@ -70,8 +70,10 @@ test.each([
 })
 
 it('generates id', () => {
-  vi.spyOn(Date, 'now').mockReturnValueOnce(1)
-  vi.spyOn(Math, 'random').mockReturnValueOnce(10000)
+  const nowSpy = vi.spyOn(Date, 'now').mockReturnValueOnce(1)
+  const randomSpy = vi.spyOn(Math, 'random').mockReturnValueOnce(10000)
 
   expect(id()).toBe('1s')
+  expect(nowSpy).toHaveBeenCalledTimes(1)
+  expect(randomSpy).toHaveBeenCalledTimes(1)
 })
