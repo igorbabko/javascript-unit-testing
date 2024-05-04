@@ -83,26 +83,28 @@ describe('timeline items', () => {
 
     resetTimelineItemActivities(timelineItems, trainingActivity)
 
-    expect(timelineItems).toEqual([
-      {
-        hour: 1,
-        activityId: null,
-        activitySeconds: SECONDS_IN_HOUR * 0,
-        isActive: false
-      },
-      {
-        hour: date.getHours(),
-        activityId: null,
-        activitySeconds: SECONDS_IN_HOUR * 1,
-        isActive: false
-      },
-      {
-        hour: 3,
-        activityId: readingActivity.id,
-        activitySeconds: SECONDS_IN_HOUR * 1,
-        isActive: true
-      }
-    ])
+    expect(timelineItems).toMatchInlineSnapshot(`
+      [
+        {
+          "activityId": null,
+          "activitySeconds": 0,
+          "hour": 1,
+          "isActive": false,
+        },
+        {
+          "activityId": null,
+          "activitySeconds": 3600,
+          "hour": 2,
+          "isActive": false,
+        },
+        {
+          "activityId": "2",
+          "activitySeconds": 3600,
+          "hour": 3,
+          "isActive": true,
+        },
+      ]
+    `)
 
     vi.useRealTimers()
   })
