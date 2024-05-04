@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, test, vi } from 'vitest'
 import {
   HUNDRED_PERCENT,
   LOW_PERCENT,
@@ -17,46 +17,56 @@ import {
 import { ProgressColorClass } from '../src/types'
 
 describe('formatSecondsWithSign', () => {
-  it('formats positive amount of seconds', () => {
-    expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 0)).toBe('+00:00:00')
-    expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 1)).toBe('+00:01:00')
-    expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 3)).toBe('+00:03:00')
-    expect(formatSecondsWithSign(SECONDS_IN_MINUTE * 30)).toBe('+00:30:00')
-    expect(formatSecondsWithSign(SECONDS_IN_HOUR)).toBe('+01:00:00')
-    expect(formatSecondsWithSign(SECONDS_IN_DAY)).toBe('+00:00:00')
+  test.each([
+    [SECONDS_IN_MINUTE * 0, '+00:00:00'],
+    [SECONDS_IN_MINUTE * 1, '+00:01:00'],
+    [SECONDS_IN_MINUTE * 3, '+00:03:00'],
+    [SECONDS_IN_MINUTE * 30, '+00:30:00'],
+    [SECONDS_IN_HOUR, '+01:00:00'],
+    [SECONDS_IN_DAY, '+00:00:00']
+  ])('positive: formatSecondsWithSign(%i) -> %o', (seconds, formattedSeconds) => {
+    expect(formatSecondsWithSign(seconds)).toBe(formattedSeconds)
   })
 
-  it('formats negative amount of seconds', () => {
-    expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 0)).toBe('+00:00:00')
-    expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 1)).toBe('-00:01:00')
-    expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 3)).toBe('-00:03:00')
-    expect(formatSecondsWithSign(-SECONDS_IN_MINUTE * 30)).toBe('-00:30:00')
-    expect(formatSecondsWithSign(-SECONDS_IN_HOUR)).toBe('-01:00:00')
-    expect(formatSecondsWithSign(-SECONDS_IN_DAY)).toBe('-00:00:00')
+  test.each([
+    [-SECONDS_IN_MINUTE * 0, '+00:00:00'],
+    [-SECONDS_IN_MINUTE * 1, '-00:01:00'],
+    [-SECONDS_IN_MINUTE * 3, '-00:03:00'],
+    [-SECONDS_IN_MINUTE * 30, '-00:30:00'],
+    [-SECONDS_IN_HOUR, '-01:00:00'],
+    [-SECONDS_IN_DAY, '-00:00:00']
+  ])('negative: formatSecondsWithSign(%i) -> %o', (seconds, formattedSeconds) => {
+    expect(formatSecondsWithSign(seconds)).toBe(formattedSeconds)
   })
 })
 
-it('formats seconds', () => {
-  expect(formatSeconds(SECONDS_IN_MINUTE * 0)).toBe('00:00:00')
-  expect(formatSeconds(SECONDS_IN_MINUTE * 1)).toBe('00:01:00')
-  expect(formatSeconds(SECONDS_IN_MINUTE * 3)).toBe('00:03:00')
-  expect(formatSeconds(SECONDS_IN_MINUTE * 30)).toBe('00:30:00')
-  expect(formatSeconds(SECONDS_IN_HOUR)).toBe('01:00:00')
-  expect(formatSeconds(SECONDS_IN_DAY)).toBe('00:00:00')
+test.each([
+  [SECONDS_IN_MINUTE * 0, '00:00:00'],
+  [SECONDS_IN_MINUTE * 1, '00:01:00'],
+  [SECONDS_IN_MINUTE * 3, '00:03:00'],
+  [SECONDS_IN_MINUTE * 30, '00:30:00'],
+  [SECONDS_IN_HOUR, '01:00:00'],
+  [SECONDS_IN_DAY, '00:00:00']
+])('formatSeconds(%i) -> %o', (seconds, formattedSeconds) => {
+  expect(formatSeconds(seconds)).toBe(formattedSeconds)
 })
 
-it('normalizes select value', () => {
-  expect(normalizeSelectValue('random-string')).toBe('random-string')
-  expect(normalizeSelectValue(null)).toBe(null)
-  expect(normalizeSelectValue('1')).toBe(1)
+test.each([
+  ['random-string', 'random-string'],
+  [null, null],
+  ['1', 1]
+])('normalizeSelectValue(%o) -> %o', (value, normalizedValue) => {
+  expect(normalizeSelectValue(value)).toBe(normalizedValue)
 })
 
-it('gets progress color class', () => {
-  expect(getProgressColorClass(0)).toBe(ProgressColorClass.RED)
-  expect(getProgressColorClass(LOW_PERCENT - 1)).toBe(ProgressColorClass.RED)
-  expect(getProgressColorClass(MEDIUM_PERCENT - 1)).toBe(ProgressColorClass.YELLOW)
-  expect(getProgressColorClass(HUNDRED_PERCENT - 1)).toBe(ProgressColorClass.BLUE)
-  expect(getProgressColorClass(HUNDRED_PERCENT)).toBe(ProgressColorClass.GREEN)
+test.each([
+  [0, ProgressColorClass.RED],
+  [LOW_PERCENT - 1, ProgressColorClass.RED],
+  [MEDIUM_PERCENT - 1, ProgressColorClass.YELLOW],
+  [HUNDRED_PERCENT - 1, ProgressColorClass.BLUE],
+  [HUNDRED_PERCENT, ProgressColorClass.GREEN]
+])('getProgressColorClass(%i) -> %o', (percentage, progressColorClass) => {
+  expect(getProgressColorClass(percentage)).toBe(progressColorClass)
 })
 
 it('generates id', () => {
