@@ -11,10 +11,9 @@ export default defineConfig({
     }
   },
   test: {
-    reporters: ['junit', 'json', 'html', 'verbose'],
-    outputFile: {
-      junit: './test-report.xml',
-      json: './test-report.json'
+    coverage: {
+      reporter: ['text', 'html'],
+      enabled: true
     }
   }
 })
